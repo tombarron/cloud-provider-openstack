@@ -36,6 +36,7 @@ type NodeVolumeContext struct {
 	ShareID       string `name:"shareID" value:"optionalIf:shareName=." precludes:"shareName"`
 	ShareName     string `name:"shareName" value:"optionalIf:shareID=." precludes:"shareID"`
 	ShareAccessID string `name:"shareAccessID"`
+	VolumePerms   string `name:"volumePerms" value:"optional"`
 
 	// Adapter options
 

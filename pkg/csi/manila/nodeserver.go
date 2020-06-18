@@ -133,6 +133,10 @@ func (ns *nodeServer) buildVolumeContext(volID volumeID, shareOpts *options.Node
 		return nil, nil, status.Errorf(codes.InvalidArgument, "failed to build volume context for volume %s: %v", volID, err)
 	}
 
+	if shareOpts["volumePerms"] {
+		VolumeContext["volumePerms"] = shareOpts["volumePerms"]
+	}
+
 	return
 }
 

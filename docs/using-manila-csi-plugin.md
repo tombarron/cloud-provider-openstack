@@ -41,7 +41,8 @@ Parameter | Required | Description
 `shareNetworkID` | _no_ | Manila [share network ID](https://wiki.openstack.org/wiki/Manila/Concepts#share_network)
 `availability` | _no_ | Manila availability zone of the provisioned share. If none is provided, the default Manila zone will be used. Note that this parameter is opaque to the CO and does not influence placement of workloads that will consume this share, meaning they may be scheduled onto any node of the cluster. If the specified Manila AZ is not equally accessible from all compute nodes of the cluster, use [Topology-aware dynamic provisioning](#topology-aware-dynamic-provisioning).
 `cephfs-mounter` | _no_ | Relevant for CephFS Manila shares. Specifies which mounting method to use with the CSI CephFS driver. Available options are `kernel` and `fuse`, defaults to `fuse`. See [CSI CephFS docs](https://github.com/ceph/ceph-csi/blob/csi-v1.0/docs/deploy-cephfs.md#configuration) for further information.
-`nfs-shareClient` | _no_ | Relevant for NFS Manila shares. Specifies what address has access to the NFS share. Defaults to `0.0.0.0/0`, i.e. anyone. 
+`nfs-shareClient` | _no_ | Relevant for NFS Manila shares. Specifies what address has access to the NFS share. Defaults to `0.0.0.0/0`, i.e. anyone.
+`volumePerms` | _no_ | POSIX file permissions mode (octal string) to pass via RPC in NodePublishVolumeRequest.VolumeContext to the appropriate protocol specific node plugin which can then change the root of the mounted volume to this mode.
 
 ### Node Service volume context
 
@@ -53,6 +54,7 @@ Parameter | Required | Description
 `shareName` | if `shareID` is not given | The name of the share
 `shareAccessID` | _yes_ | The UUID of the access rule for the share
 `cephfs-mounter` | _no_ | Relevant for CephFS Manila shares. Specifies which mounting method to use with the CSI CephFS driver. Available options are `kernel` and `fuse`, defaults to `fuse`. See [CSI CephFS docs](https://github.com/ceph/ceph-csi/blob/csi-v1.0/docs/deploy-cephfs.md#configuration) for further information.
+`volumePerms` | _no_ | POSIX file permissions mode (octal string) to pass via RPC in NodePublishVolumeRequest.VolumeContext to the appropriate protocol specific node plugin which can then change the root of the mounted volume to this mode.
 
 _Note that the Node Plugin of CSI Manila doesn't care about the origin of a share. As long as the share protocol is supported, CSI Manila is able to consume dynamically provisioned as well as pre-provisioned shares (e.g. shares created manually)._
 
